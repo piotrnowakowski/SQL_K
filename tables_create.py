@@ -13,9 +13,7 @@ commands_list = ["""CREATE TABLE school_list(Facility_Code INTEGER NOT NULL PRIM
     Overall_SPI_OVERALL REAL, Black_SPI_OVERALL REAL, Hispanic_SPI_OVERALL REAL,
     ELL_SPI_OVERALL REAL, FRL_SPI_OVERALL REAL, SWD_SPI_OVERALL REAL, High_Needs_SPI_OVERALL REAL,
     Overall_SPI_MATH REAL, Overall_SPI_READ REAL, Overall_SPI_WRITE REAL, Overall_SPI_SCIENCE REAL); """,
-                 """CREATE TABLE average_for_race (race VARCHAR(50), year INTEGER, Overall_SPI REAL);""",
-                 """CREATE TABLE average_for_school(Facility_Code INTEGER NOT NULL REFERENCES school_list(Facility_Code), 
-    Overall_SPI_MATH REAL, Overall_SPI_READ REAL, Overall_SPI_WRITE REAL, Overall_SPI_SCIENCE REAL)"""]
+                 """CREATE TABLE average_for_race (race VARCHAR(50), year INTEGER, Overall_SPI REAL);"""]
 try:
     conn = psycopg2.connect(
         host="localhost",
