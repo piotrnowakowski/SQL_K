@@ -12,37 +12,33 @@ try:
 
     cur = conn.cursor()
 
-    school_key_list = []
-    key_get = """SELECT facility_code FROM school_list;"""
+    race_key_list = []
+    key_get = """SELECT race FROM average_for_race;"""
     cur.execute(key_get)
     k = cur.fetchall()
     for i in k:
-        school_key_list.append(i[0])
+        if i[0] not in race_key_list:
+            race_key_list.append(i[0])
 
-    color_list = ["red", "green", "blue", "yellow", "black", "violet", "orange", ]
+    color_list = ["red", "green", "blue", "yellow", "black", "violet", ]
     plt.figure(figsize=(20, 5))
     plt.grid()
     i = 0
     x1 = []
     y1 = []
-    for school in school_key_list[186::]:
+    for race in race_key_list:
         x1 = []
         y1 = []
         for year in [2010, 2011, 2012]:
 
-            s = """SELECT overall_spi_overall,year FROM data WHERE facility_code = '{}' 
-                    AND year={} ORDER BY facility_code;""".format(school, year)
+            s = """SELECT overall_spi FROM average_for_race WHERE year={} AND race='{}' ;""".format(year,race)
             cur.execute(s)
             tab = cur.fetchall()
             for t in tab:
-                x1.append(t[1])
+                x1.append(year)
                 y1.append(t[0])
 
-        s = "SELECT school_name FROM school_list WHERE facility_code= {}".format(school)
-        cur.execute(s)
-        sa = cur.fetchall()
-        school_name = sa[0]
-        plt.plot(x1, y1, label="Overall SPI in {}".format(school_name[0]), color=color_list[i])
+        plt.plot(x1, y1, label="Average SPI for {}".format(race), color=color_list[i])
         i += 1
 
     plt.xlabel("Y e a r")
